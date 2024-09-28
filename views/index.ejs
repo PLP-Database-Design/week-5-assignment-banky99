@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patients and Providers</title>
+</head>
+<body>
+    <h1>Patients and Providers Information</h1>
+
+    <!-- Filter Patients by First Name -->
+    <form action="/filter-patients" method="GET">
+        <label for="first_name">Filter Patients by First Name:</label>
+        <input type="text" id="first_name" name="first_name" placeholder="Enter First Name">
+        <button type="submit">Filter</button>
+    </form>
+
+    <!-- Filter Providers by Specialty -->
+    <form action="/filter-providers" method="GET">
+        <label for="specialty">Filter Providers by Specialty:</label>
+        <input type="text" id="specialty" name="specialty" placeholder="Enter Specialty">
+        <button type="submit">Filter</button>
+    </form>
+
+    <hr>
+
+    <!-- Display All Patients -->
+    <h2>Patients</h2>
+    <% if (patients.length > 0) { %>
+        <table border="1">
+            <tr>
+                <th>Patient ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Date of Birth</th>
+            </tr>
+            <% patients.forEach(function(patient) { %>
+                <tr>
+                    <td><%= patient.patient_id %></td>
+                    <td><%= patient.first_name %></td>
+                    <td><%= patient.last_name %></td>
+                    <td><%= patient.date_of_birth.toISOString().slice(0, 10) %></td>
+                </tr>
+            <% }); %>
+        </table>
+    <% } else { %>
+        <p>No patients found.</p>
+    <% } %>
+
+    <hr>
+
+    <!-- Display All Providers -->
+    <h2>Providers</h2>
+    <% if (providers.length > 0) { %>
+        <table border="1">
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Provider Specialty</th>
+            </tr>
+            <% providers.forEach(function(provider) { %>
+                <tr>
+                    <td><%= provider.first_name %></td>
+                    <td><%= provider.last_name %></td>
+                    <td><%= provider.provider_specialty %></td>
+                </tr>
+            <% }); %>
+        </table>
+    <% } else { %>
+        <p>No providers found.</p>
+    <% } %>
+
+    <hr>
+
+    <!-- Display Filtered Patients -->
+    <% if (filteredPatients.length > 0) { %>
+        <h2>Filtered Patients</h2>
+        <table border="1">
+            <tr>
+                <th>Patient ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Date of Birth</th>
+            </tr>
+            <% filteredPatients.forEach(function(patient) { %>
+                <tr>
+                    <td><%= patient.patient_id %></td>
+                    <td><%= patient.first_name %></td>
+                    <td><%= patient.last_name %></td>
+                    <td><%= patient.date_of_birth.toISOString().slice(0, 10) %></td>
+                </tr>
+            <% }); %>
+        </table>
+    <% } %>
+
+    <!-- Display Filtered Providers -->
+    <% if (filteredProviders.length > 0) { %>
+        <h2>Filtered Providers</h2>
+        <table border="1">
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Provider Specialty</th>
+            </tr>
+            <% filteredProviders.forEach(function(provider) { %>
+                <tr>
+                    <td><%= provider.first_name %></td>
+                    <td><%= provider.last_name %></td>
+                    <td><%= provider.provider_specialty %></td>
+                </tr>
+            <% }); %>
+        </table>
+    <% } %>
+
+</body>
+</html>
+
